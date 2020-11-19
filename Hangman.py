@@ -1,1 +1,2 @@
-#Here is where we will write our code
+import random
+from WordList import wordList
