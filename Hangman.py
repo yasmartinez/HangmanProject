@@ -9,6 +9,18 @@ WIDTH, HEIGHT = 800, 500
 win = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Hangman")
 
+#variables used for the buttons
+radius = 20
+gapSize = 15
+#list for the buttons used
+letters = []
+startX = round((WIDTH - (radius * 2 + gapSize) * 13) / 2)
+startY = 400
+
+for i in range(26):
+    x = startX + gapSize * 2 + ((radius * 2 + gapSize) * (i % 13))
+    y =
+
 #hangman pictures used
 images = []
 #loop cycles through the images for each point in hangman based on pic name
