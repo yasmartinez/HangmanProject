@@ -6,7 +6,7 @@ import pygame
 pygame.init()
 WIDTH, HEIGHT = 800, 500
 win = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Hangman")
+pygame.display.set_caption("Animal Hangman!")
 
 #variables used for the buttons
 radius = 20
@@ -16,6 +16,7 @@ gapSize = 15
 black = (89, 89, 89)
 lightBlue = (199, 213, 224)
 yellow = (254, 248, 220)
+
 #list for the buttons used
 letters = [] 
 startX = round((WIDTH - (radius * 2 + gapSize) * 13) / 2)
@@ -41,6 +42,7 @@ for i in range(7):
 
 #stage in where the hangman is
 hangmanLife = 0
+#list of words
 wordList = ["COW", "HORSE", "DOG", "HIPPO", "LEOPARD", "BEAR", "WHALE", "BUMBLEBEE", "CHIMPANZEE", "ELEPHANT", "FLAMINGO", "GREYHOUND", "HUMMINGBIRD", "KANGAROO", "LADYBUG", "MONKEY", "NARWHAL", "OCTOPUS", "PANTHER", "RACCOON", "RATTLESNAKE", "SALAMANDER", "ZEBRA"]
 words = random.choice(wordList)
 guess = []
@@ -113,20 +115,20 @@ while run:
 
     if wins:
         win.fill(lightBlue)
-        text = lettersFont.render("You guessed correctly! The word was: ", 1, yellow)
+        text = lettersFont.render("You guessed correctly!", 1, yellow)
         #display in the middle of the screen
         win.blit(text, (WIDTH/2 - text.get_width()/ 2, HEIGHT / 2 - text.get_height()/ 2))
         pygame.display.update()
-        pygame.time.delay(4000)
+        pygame.time.delay(5000)
         break
 
     if hangmanLife == 6:
         win.fill(lightBlue)
-        text = lettersFont.render("You did not guess correctly! The word was: ", 1, yellow)
+        text = lettersFont.render("You did not guess correctly.", 1, yellow)
         #display in the middle of the screen
         win.blit(text, (WIDTH/2 - text.get_width()/ 2, HEIGHT / 2 - text.get_height()/ 2))
         pygame.display.update()
-        pygame.time.delay(4000)
+        pygame.time.delay(5000)
         break
 
 
