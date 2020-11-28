@@ -1,5 +1,4 @@
-#import random
-#from WordList import wordList
+import random
 import math
 import pygame
 
@@ -14,8 +13,9 @@ radius = 20
 gapSize = 15
 
 #colors
-black = (0, 0, 0)
-lightBlue = (153, 179, 255)
+black = (89, 89, 89)
+lightBlue = (199, 213, 224)
+yellow = (254, 248, 220)
 #list for the buttons used
 letters = [] 
 startX = round((WIDTH - (radius * 2 + gapSize) * 13) / 2)
@@ -41,6 +41,9 @@ for i in range(7):
 
 #stage in where the hangman is
 hangmanLife = 0
+wordList = ["COW", "HORSE", "DOG", "HIPPO", "LEOPARD", "BEAR", "WHALE", "BUMBLEBEE", "CHIMPANZEE", "ELEPHANT", "FLAMINGO", "GREYHOUND", "HUMMINGBIRD", "KANGAROO", "LADYBUG", "MONKEY", "NARWHAL", "OCTOPUS", "PANTHER", "RACCOON", "RATTLESNAKE", "SALAMANDER", "ZEBRA"]
+words = random.choice(wordList)
+guess = []
 
 
 FPS = 60
@@ -50,6 +53,18 @@ run = True
 def drawings():
     #background color
     win.fill((lightBlue))
+
+    #displaying the word onto the screen
+    wordDisplayed = ""
+    for letter in words:
+        if letter in guess:
+            wordDisplayed += letter + " "
+        else:
+            wordDisplayed += "_ "
+    text = lettersFont.render(wordDisplayed, 1, black)
+    win.blit(text, (400, 200))
+
+
 
     #button colors
     for letter in letters:
@@ -84,6 +99,35 @@ while run:
                     #removal of the button after selection
                     if distance < radius:
                         letter[3] = False
-                        [3, 4, "A", False]
+                        #display words onto screen if in word
+                        guess.append(ltr)
+                        #adding limbs onto hangman figure if incorrect
+                        if ltr not in words:
+                            hangmanLife += 1
+    #if the user guesses correctly or not
+    wins = True
+    for letter in words:
+        if letter not in guess:
+            wins = False
+            break
+
+    if wins:
+        win.fill(lightBlue)
+        text = lettersFont.render("You guessed correctly! The word was: ", 1, yellow)
+        #display in the middle of the screen
+        win.blit(text, (WIDTH/2 - text.get_width()/ 2, HEIGHT / 2 - text.get_height()/ 2))
+        pygame.display.update()
+        pygame.time.delay(4000)
+        break
+
+    if hangmanLife == 6:
+        win.fill(lightBlue)
+        text = lettersFont.render("You did not guess correctly! The word was: ", 1, yellow)
+        #display in the middle of the screen
+        win.blit(text, (WIDTH/2 - text.get_width()/ 2, HEIGHT / 2 - text.get_height()/ 2))
+        pygame.display.update()
+        pygame.time.delay(4000)
+        break
+
 
 pygame.quit
